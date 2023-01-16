@@ -15,17 +15,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository to your local machine:
 
+https://github.com/rjpatil885/SportsTrader.git
+
 2. Navigate to the project directory:
+
 cd SportsTrader
 
 3. Install the required packages:
+
 pip install -r requirements.txt
 
-4 Apply the migrations:
+4. Apply the migrations:
+
 python manage.py makemigrations
 python manage.py migrate
 
-5 Run the following command to start the development server:
+5. Run the following command to start the development server:
+
 python manage.py runserver
 
 The server will be running on http://127.0.0.1:8000/
