@@ -19,7 +19,7 @@ https://github.com/rjpatil885/SportsTrader.git
 
 2. Navigate to the project directory:
 
-cd SportsTrader
+cd SportsTrader/sportstrader
 
 3. Install the required packages:
 
