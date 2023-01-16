@@ -83,13 +83,10 @@ def home(request):
  
 
   events = Event.objects.all()
-  cmp_filter = Event.objects.order_by().values_list('competition_name').distinct()
-  top_10_probable_events = Event.objects.all().order_by('-result')[:10]
 
   return render(request, 'home.html', {
-    'cmp_filter':cmp_filter,
+
     'events': events,
-    'top_10_probability':top_10_probable_events,
 
     })
 
@@ -97,13 +94,27 @@ def home(request):
 
 def probability_check(probability_home_team_winner, probability_draw, probability_away_team_winner ):
 
-    if probability_home_team_winner > probability_draw and probability_home_team_winner > probability_away_team_winner:
-        result = "HOME_TEAM_WIN"
-        probability = probability_home_team_winner
-    elif probability_draw > probability_home_team_winner and probability_draw > probability_away_team_winner:
-        result = "DRAW"
-        probability = probability_draw
-    else:
-        result = "AWAY_TEAM_WIN"
-        probability = probability_away_team_winner
-    return result , probability
+  if probability_home_team_winner > probability_draw and probability_home_team_winner > probability_away_team_winner:
+      result = "HOME_TEAM_WIN"
+      probability = probability_home_team_winner
+  elif probability_draw > probability_home_team_winner and probability_draw > probability_away_team_winner:
+      result = "DRAW"
+      probability = probability_draw
+  else:
+      result = "AWAY_TEAM_WIN"
+      probability = probability_away_team_winner
+  return result , probability
+
+
+def statistics_view(request):
+
+  top_10_probable_events = Event.objects.all().order_by('-result')[:10]
+  top_10_low_probable_events = Event.objects.all().order_by('result')[:10]
+
+
+  return render(request,'stats.html',{
+
+    'top_10_prob': top_10_probable_events,
+    'low_10_prob': top_10_low_probable_events
+   
+  })
