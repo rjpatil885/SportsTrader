@@ -90,8 +90,6 @@ def home(request):
 
     })
 
-
-
 def probability_check(probability_home_team_winner, probability_draw, probability_away_team_winner ):
 
   if probability_home_team_winner > probability_draw and probability_home_team_winner > probability_away_team_winner:
@@ -105,16 +103,195 @@ def probability_check(probability_home_team_winner, probability_draw, probabilit
       probability = probability_away_team_winner
   return result , probability
 
-
 def statistics_view(request):
 
   top_10_probable_events = Event.objects.all().order_by('-result')[:10]
   top_10_low_probable_events = Event.objects.all().order_by('result')[:10]
 
-
   return render(request,'stats.html',{
-
     'top_10_prob': top_10_probable_events,
     'low_10_prob': top_10_low_probable_events
-   
   })
+
+
+
+def win_filter(request):
+
+  filter_dict = request.GET.get('filter_dict')
+  load_data = json.loads(filter_dict)
+  result = load_data.get("result_filter", None)
+  quantity_filter = load_data.get("filter_qty", None)
+  date_filter = load_data.get("filter_date", None)
+
+  if quantity_filter != "all" :
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))[:int(quantity_filter)]
+      else:
+        winner = Event.objects.filter(Q(result_type=result))[:int(quantity_filter)]
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))[:int(quantity_filter)]      
+      else:
+        winner = Event.objects.all()[:int(quantity_filter)]
+  else:
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))
+      else:
+        winner = Event.objects.filter(Q(result_type=result)).all()
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))    
+      else:
+        winner = Event.objects.all()
+
+  data = [
+  {
+    
+    'venue': event.venue,
+    'competition_name': event.competition_name,
+    'start_date': event.start_date,
+    'home_name': event.home_name,
+    'home_country': event.home_country,
+    'away_name': event.away_name,
+    'away_country': event.away_country,
+    'result': event.result,
+    'result_type': event.result_type,
+
+  }
+  for event in winner
+  ]
+
+  return JsonResponse({'data': data})
+
+from datetime import datetime
+
+def quantity_filter(request):
+
+  filter_dict = request.GET.get('filter_dict')
+  load_data = json.loads(filter_dict)
+  result = load_data.get("result_filter", None)
+  quantity_filter = load_data.get("filter_qty", None)
+  date_filter = load_data.get("filter_date", None)
+
+  if quantity_filter != "all" :
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))[:int(quantity_filter)]
+      else:
+        winner = Event.objects.filter(Q(result_type=result))[:int(quantity_filter)]
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))[:int(quantity_filter)]
+      else:
+        winner = Event.objects.all()[:int(quantity_filter)]
+  else:
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))
+      else:
+        winner = Event.objects.filter(Q(result_type=result)).all()
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))    
+      else:
+        winner = Event.objects.all()
+
+
+  data = [
+  {
+    
+    'venue': event.venue,
+    'competition_name': event.competition_name,
+    'start_date': event.start_date,
+    'home_name': event.home_name,
+    'home_country': event.home_country,
+    'away_name': event.away_name,
+    'away_country': event.away_country,
+    'result': event.result,
+    'result_type': event.result_type,
+
+  }
+  for event in winner
+  ]
+
+  return JsonResponse({'data': data})
+
+
+def date_filter(request):
+
+  filter_dict = request.GET.get('filter_dict')
+  load_data = json.loads(filter_dict)
+  result = load_data.get("result_filter", None)
+  quantity_filter = load_data.get("filter_qty", None)
+  date_filter = load_data.get("filter_date", None)
+
+  if quantity_filter != "all" :
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))[:int(quantity_filter)]
+      else:
+        winner = Event.objects.filter(Q(result_type=result))[:int(quantity_filter)]
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))[:int(quantity_filter)]
+      else:
+        winner = Event.objects.all()[:int(quantity_filter)]
+  else:
+    if date_filter:
+      date_filter = datetime.strptime(date_filter, '%m/%d/%Y').strftime('%Y-%m-%d')
+    else:
+      date_filter = None
+    if result != "all_result": 
+      if date_filter:
+        winner = Event.objects.filter(Q(result_type=result) & Q(start_date__date=date_filter))
+      else:
+        winner = Event.objects.filter(Q(result_type=result)).all()
+    else:
+      if date_filter:
+        winner = Event.objects.filter(Q(start_date__date=date_filter))    
+      else:
+        winner = Event.objects.all()
+
+  data = [
+  {
+    
+    'venue': event.venue,
+    'competition_name': event.competition_name,
+    'start_date': event.start_date,
+    'home_name': event.home_name,
+    'home_country': event.home_country,
+    'away_name': event.away_name,
+    'away_country': event.away_country,
+    'result': event.result,
+    'result_type': event.result_type,
+
+  }
+  for event in winner
+  ]
+
+  return JsonResponse({'data': data})
+
+
