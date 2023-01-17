@@ -89,31 +89,10 @@
       </tr>
       {% endfor %}
 
-
     </tbody>
   </table>
 
-    </div>
+ </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js" integrity="sha512-CX7sDOp7UTAq+i1FYIlf9Uo27x4os+kGeoT7rgwvY+4dmjqV0IuE/Bl5hVsjnQPQiTOhAX1O2r2j5bjsFBvv/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
-
-var el = $(' <input class="form-control mr-sm-2" type="search" placeholder="quantity" id="qtycustomdata" >');
-
-      $(document).ready(function () {
-          $('#quantityFilter').change(function () {
-            if ($(this).val() === 'custom') {
-                $(".custom").html(el).on('keyup change', function() {
-                    alert($("#qtycustomdata").val());
-                });
-            } else {
-                $(".custom").html('');
-            }
-          });
-      });
-
-    
-
-  </script>
     {% endblock %}

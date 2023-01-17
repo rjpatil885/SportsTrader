@@ -295,3 +295,16 @@ def date_filter(request):
   return JsonResponse({'data': data})
 
 
+def competitors_data(request):
+
+  cmp_list = Competitors.objects.all().order_by('name')
+
+  cmp_filter = Event.objects.order_by().values_list('competition_name').distinct()
+
+  country_filter  = Competitors.objects.all().values_list('country').distinct()
+
+  return render(request,'competitors.html', {
+  'cmp_list':cmp_list,
+  'cmp_filter':cmp_filter,
+  'country_filter':country_filter
+  })

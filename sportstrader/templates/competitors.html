@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid px-lg-5 px-md-3 px-sm-2 mt-4">
+  
+          <div class="form-check form-check-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Competitor Id" aria-label="Search">
+          </div>
+
+          <div class="form-check form-check-inline mb-2">
+           
+            <select class="form-control" id="teamFilter">
+              <option value="all"> All Countries </option>
+
+              {% for values in country_filter %}
+              {% with country=values.0 %}
+              <option value="{{country}}"> {{country}} </option>
+              {% endwith %}
+               {% endfor %}
+            
+            </select>
+          </div>
+      
+          <h4 class="mt-4"> Unique Teams  </h4>
+
+          <table class=" mb-2 table table-light table-striped table-borderless table-responsive-sm mt-4">
+            <thead>
+          <tr class="box-shadow">
+            
+            <th scope="col" class="text-dark">Competitor Id</th>
+            <th scope="col" class="text-dark">Country</th>
+            <th scope="col" class="text-dark">Name</th>
+            <th scope="col" class="text-dark">Gender</th>
+            <th scope="col" class="text-dark">Abbreviation</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for event in cmp_list %}
+            
+          <tr class="table-hover box-shadow "> 
+            <td class="text-dark">{{ event.c_id }}</td>
+            <td class="text-dark">{{ event.country }}</td>
+            <td class="text-dark">{{ event.name }}</td>
+            <td class="text-dark">{{ event.gender }}</td>
+            <td class="text-dark">{{ event.abbreviation }}</td>
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+
+    </div>
+
+    {% endblock %}

@@ -10,6 +10,6 @@ urlpatterns = [
     path('fetch_data/', views.win_filter, name='fetch_data'),
     path('fetch_qty/', views.quantity_filter , name='fetch_qty'),
     path('fetch_date/', views.date_filter , name='fetch_date'),
-
+    path('competitor/',views.competitors_data, name='competitor'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

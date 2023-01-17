@@ -104,6 +104,18 @@ $.ajax({
       html = ''
    
           $.each(data.data, function(index, event) {
+        
+        date  =  new Date(event.start_date);
+           var options = { 
+            month: "long", 
+            day: "numeric", 
+            year: "numeric", 
+            hour: "numeric", 
+            minute: "numeric", 
+            hour12: true
+        };
+
+        var formatted_date_time = date.toLocaleString("en-US", options);
 
           html += 
 
@@ -111,7 +123,7 @@ $.ajax({
             <tr class="table-hover box-shadow"> 
               <td class="text-dark">${ event.venue }</td>
               <td class="text-dark">${event.competition_name}</td>
-              <td class="text-dark">${event.start_date}</td>
+              <td class="text-dark">${formatted_date_time}</td>
               <td class="text-dark">${ event.home_name }</td>
               <td class="text-dark">${ event.home_country }</td>
               <td class="text-dark">  VS </td>
@@ -164,13 +176,24 @@ $.ajax({
       html = ''
           
           $.each(data.data, function(index, event) {
-      
+            date  =  new Date(event.start_date);
+            var options = { 
+             month: "long", 
+             day: "numeric", 
+             year: "numeric", 
+             hour: "numeric", 
+             minute: "numeric", 
+             hour12: true
+         };
+ 
+         var formatted_date_time = date.toLocaleString("en-US", options);
+         
           html += 
             `
             <tr class="table-hover box-shadow"> 
               <td class="text-dark">${ event.venue }</td>
               <td class="text-dark">${event.competition_name}</td>
-              <td class="text-dark">${event.start_date}</td>
+              <td class="text-dark">${formatted_date_time}</td>
               <td class="text-dark">${ event.home_name }</td>
               <td class="text-dark">${ event.home_country }</td>
               <td class="text-dark">  VS </td>
