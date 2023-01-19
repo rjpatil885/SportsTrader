@@ -1,4 +1,4 @@
-# SportsTrader_API# My Django Project
+# SportsTradar Project
 
 This is a sample Django project that demonstrates how to set up and run a SportsTrader web application using the Django framework.
 
