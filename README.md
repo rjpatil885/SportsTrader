@@ -24,7 +24,8 @@ cd SportsTrader/sportstrader
 
 3. Apply the migrations:
 
-python manage.py makemigrations
+python manage.py makemigrations,
+
 python manage.py migrate
 
 4. Run the following command to start the development server:
